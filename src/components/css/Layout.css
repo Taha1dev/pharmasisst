@@ -1,0 +1,8 @@
+.content{
+  flex: 1;
+}
+.red-hr{
+  color: blue;
+  background-color: blue;
+  border: solid 1px blue;
+}
