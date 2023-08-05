@@ -1,7 +1,29 @@
+import Layout from './components/Layout';
 import './App.css';
-import './index.css';
-function App() {
-  return <h1 className="underline text-3xl">hello</h1>;
-}
+
+const App = () => {
+  return (
+    <>
+      <Layout>
+        <div className="container mx-auto my-10 h-full">
+          <div className="grid grid-cols-4 gap-4 mb-5">
+            <div className="h-40 rounded-2xl bg-gray-400"></div>
+            <div className="h-40 rounded-2xl bg-gray-400"></div>
+            <div className="h-40 rounded-2xl bg-gray-400"></div>
+            <div className="h-40 rounded-2xl bg-gray-400"></div>
+          </div>
+          <div className="grid grid-cols-4 gap-4 mb-5">
+            <div className="h-80 col-span-3 rounded-2xl bg-gray-400"></div>
+            <div className="h-80 col-span-1 rounded-2xl bg-gray-400"></div>
+          </div>
+          <div className="grid grid-cols-4 gap-4 mb-5">
+            <div className="h-72 col-span-2 rounded-2xl bg-gray-400"></div>
+            <div className="h-72 col-span-2 rounded-2xl bg-gray-400"></div>
+          </div>
+        </div>
+      </Layout>
+    </>
+  );
+};
 
 export default App;
