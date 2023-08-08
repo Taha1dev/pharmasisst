@@ -1,57 +1,45 @@
-@import url('https://cdn.syncfusion.com/ej2/material.css');
-
-.sidebar {
-  box-shadow: rgb(113 122 131 / 11%) 0px 7px 30px 0px;
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
 }
 
-.nav-item,
-.navbar {
-  z-index: 10000;
-}
+@media (min-width: 768px) {
+  .grid-cols-md-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-@media screen and (max-width:800px) {
-  .sidebar {
-    z-index: 10000000;
+  .md\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .h-80 {
+    height: 20rem;
   }
 }
 
-.e-dlg-center-center,
-.e-quick-popup-wrapper.e-device {
-  z-index: 1000000 !important;
+@media (min-width: 1024px) {
+  .grid-cols-xl-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .xl\:col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .h-40 {
+    height: 10rem;
+  }
+
+  .h-96 {
+    height: 24rem;
+  }
 }
 
-::-webkit-scrollbar {
-  width: 6px;
+.rounded-2xl {
+  border-radius: 1rem;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: rgb(216, 216, 216);
-  border-radius: 40px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-/* color-picker style  */
-
-#preview {
-  background: transparent url('https://ej2.syncfusion.com/react/demos/src/color-picker/images/pen.png') no-repeat;
-  display: inline-block;
-  height: 80px;
-  margin: 10px 0;
-  min-width: 300px;
-  max-width: 600px;
-  background-color: #008000;
-}
-
-.e-input-group:not(.e-float-icon-left),
-.e-input-group.e-success:not(.e-float-icon-left),
-.e-input-group.e-warning:not(.e-float-icon-left),
-.e-input-group.e-error:not(.e-float-icon-left),
-.e-input-group.e-control-wrapper:not(.e-float-icon-left),
-.e-input-group.e-control-wrapper.e-success:not(.e-float-icon-left),
-.e-input-group.e-control-wrapper.e-warning:not(.e-float-icon-left),
-.e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {
-  border: none;
+.bg-gray-400 {
+  background-color: #cbd5e0;
 }

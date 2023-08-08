@@ -1,0 +1,26 @@
+@media (max-width: 768px) {
+
+  nav {
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  aside {
+    width: fit-content !important;
+    -moz-width: fit-content !important;
+    padding: 10px !important;
+  }
+
+  aside a span:nth-child(2) {
+    display: none !important;
+  }
+
+  .image,
+  .title {
+    display: none !important;
+  }
+}
+
+aside a:hover {
+  background-color: #00a8b9;
+}
