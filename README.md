@@ -21,6 +21,6 @@ Main Technologies:
 
 Links:
 
-[Flutter App]([link](https://github.com/Amjad1Qasem/pharma_assist))   
-[Admin Dashboard]([link](https://github.com/Taha1dev/pharmasisst))
-[Laravel App]([link]https://github.com/JawadRustom/pharma-assist))
+[Flutter App](https://github.com/Amjad1Qasem/pharma_assist)
+[Admin Dashboard](https://github.com/Taha1dev/pharmasisst)
+[Laravel App](https://github.com/JawadRustom/pharma-assist)
