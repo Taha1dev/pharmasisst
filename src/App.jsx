@@ -1,27 +1,43 @@
 import Layout from './components/Layout';
 import './App.css';
-
+import {
+  Route,
+  BrowserRouter as Router,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
+//Pages
+import Home from './pages/Home';
+import Categories from './pages/Categories';
+import Medicines from './pages/Medicines';
+import MedicineType from './pages/MedicineType';
+import SubAdmins from './pages/SubAdmins';
+import Companies from './pages/Companies';
+import Settings from './pages/Settings';
+import Login from './pages/Login';
+import NotFound from './NotFound';
 const App = () => {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route index element={<Login />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="home" element={<Home />} />
+          <Route path="categories" element={<Categories />} />
+          <Route path="companies" element={<Companies />} />
+          <Route path="medicines" element={<Medicines />} />
+          <Route path="MedicineType" element={<MedicineType />} />
+          <Route path="SubAdmins" element={<SubAdmins />} />
+          <Route path="Settings" element={<Settings />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    )
+  );
   return (
     <>
-      <Layout>
-        <div className="container mx-auto my-10 h-full">
-          <div className="grid grid-cols-4 gap-4 mb-5">
-            <div className="h-40 rounded-2xl bg-gray-400"></div>
-            <div className="h-40 rounded-2xl bg-gray-400"></div>
-            <div className="h-40 rounded-2xl bg-gray-400"></div>
-            <div className="h-40 rounded-2xl bg-gray-400"></div>
-          </div>
-          <div className="grid grid-cols-4 gap-4 mb-5">
-            <div className="h-80 col-span-3 rounded-2xl bg-gray-400"></div>
-            <div className="h-80 col-span-1 rounded-2xl bg-gray-400"></div>
-          </div>
-          <div className="grid grid-cols-4 gap-4 mb-5">
-            <div className="h-72 col-span-2 rounded-2xl bg-gray-400"></div>
-            <div className="h-72 col-span-2 rounded-2xl bg-gray-400"></div>
-          </div>
-        </div>
-      </Layout>
+      <RouterProvider router={router} />
     </>
   );
 };
