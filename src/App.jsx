@@ -17,6 +17,7 @@ import Companies from './pages/Companies';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
 import NotFound from './NotFound';
+
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
