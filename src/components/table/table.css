@@ -1,43 +1,4 @@
-/* Table header */
-thead {
-  background-color: var(--mainColor);
+.wrapper {
+  margin-right: 50px;
+  width: 800px;
 }
-/* Assuming you have a CSS file or module */
-
-/* Custom styling for the row-style pagination */
-.row-style-pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-}
-
-/* Styling for the pagination items */
-.pagination-item {
-  margin: 0 0.5rem;
-  padding: 0.2rem 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  cursor: pointer;
-}
-
-/* Styling for the active page */
-.active {
-  background-color: var(--mainColor);
-  color: #fff;
-}
-
-/* Styling for the previous and next buttons */
-.pagination-item.previous,
-.pagination-item.next {
-  background-color: var(--mainColor);
-  color: #fff;
-}
-
-/* Styling for the pagination links */
-.pagination-link {
-  text-decoration: none;
-  color: #333;
-}
-
-/* Add more CSS rules as needed for your specific styling */

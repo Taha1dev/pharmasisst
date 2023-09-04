@@ -1,168 +1,162 @@
-import React, { useState, useMemo } from 'react';
-import ReactPaginate from 'react-paginate';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './table.css';
 
-const itemsPerPage = 10;
-
-const TableHeader = ({ sortKey, sortDirection, handleSort }) => (
-  <thead>
-    <tr className="text-white">
-      <th
-        className="py-2 px-4 cursor-pointer"
-        onClick={() => handleSort('song')}
-      >
-        Song {sortKey === 'song' && (sortDirection === 'asc' ? '↑' : '↓')}
-      </th>
-      <th
-        className="py-2 px-4 cursor-pointer"
-        onClick={() => handleSort('artist')}
-      >
-        Artist {sortKey === 'artist' && (sortDirection === 'asc' ? '↑' : '↓')}
-      </th>
-      <th
-        className="py-2 px-4 cursor-pointer"
-        onClick={() => handleSort('year')}
-      >
-        Year {sortKey === 'year' && (sortDirection === 'asc' ? '↑' : '↓')}
-      </th>
-    </tr>
-  </thead>
-);
-
-const TableRow = ({ song, artist, year }) => (
-  <tr className="hover:bg-gray-100 transition-colors duration-200">
-    <td className="py-3 px-4">{song}</td>
-    <td className="py-3 px-4">{artist}</td>
-    <td className="py-3 px-4">{year}</td>
-  </tr>
-);
-
-const DynamicTable = () => {
-  const initialData = [
-    { song: 'The Sliding Mr', artist: 'Malcolm Lockyer', year: 1961 },
-    { song: 'Witchy Woman', artist: 'The Eagles', year: 1972 },
-    { song: 'Shining Star', artist: 'Earth, Wind, and Fire', year: 1975 },
-    { song: 'Rhythm of Life', artist: 'Sammy Davis Jr.', year: 1963 },
-    { song: 'Bohemian Rhapsody', artist: 'Queen', year: 1975 },
-    { song: 'Hotel California', artist: 'Eagles', year: 1976 },
-    { song: 'Dancing Queen', artist: 'ABBA', year: 1976 },
-    { song: 'Like a Rolling Stone', artist: 'Bob Dylan', year: 1965 },
-    { song: 'Imagine', artist: 'John Lennon', year: 1971 },
-    { song: 'Born to Run', artist: 'Bruce Springsteen', year: 1975 },
-    { song: 'I Will Survive', artist: 'Gloria Gaynor', year: 1978 },
-    { song: 'Smells Like Teen Spirit', artist: 'Nirvana', year: 1991 },
-    { song: 'Waterloo', artist: 'ABBA', year: 1974 },
-    { song: 'Hey Jude', artist: 'The Beatles', year: 1968 },
-    { song: 'Stairway to Heaven', artist: 'Led Zeppelin', year: 1971 },
-    { song: 'Thriller', artist: 'Michael Jackson', year: 1982 },
-    { song: 'Imagine', artist: 'Ariana Grande', year: 2019 },
-    { song: 'Shape of You', artist: 'Ed Sheeran', year: 2017 },
-    { song: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', year: 2014 },
-    { song: 'Hallelujah', artist: 'Leonard Cohen', year: 1984 },
-    { song: 'Billie Jean', artist: 'Michael Jackson', year: 1982 },
-    { song: 'Rolling in the Deep', artist: 'Adele', year: 2010 },
-  ];
-
-  const [data, setData] = useState(initialData);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortKey, setSortKey] = useState(null);
-  const [sortDirection, setSortDirection] = useState('asc');
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleSort = (key) => {
-    if (key === sortKey) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortKey(key);
-      setSortDirection('asc');
-    }
-    setCurrentPage(1);
-  };
-
-  const sortedData = useMemo(() => {
-    return sortKey
-      ? [...data].sort((a, b) => {
-          const compare = a[sortKey].localeCompare(b[sortKey]);
-          return sortDirection === 'asc' ? compare : -compare;
-        })
-      : data;
-  }, [data, sortKey, sortDirection]);
-
-  const filteredData = useMemo(() => {
-    return searchTerm
-      ? sortedData.filter(
-          (item) =>
-            item.song.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.artist.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      : sortedData;
-  }, [sortedData, searchTerm]);
-
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-  const offset = (currentPage - 1) * itemsPerPage;
-  const visibleData = filteredData.slice(offset, offset + itemsPerPage);
+const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-md p-4">
-        <div className="bg-gray-100 rounded-t-lg p-2 flex items-center">
+    <nav className="mt-4">
+      <ul className="pagination flex justify-center">
+        {pageNumbers.map((pageNumber) => (
+          <li
+            key={pageNumber}
+            className={`page-item rounded-lg ${
+              currentPage === pageNumber ? 'bg-blue-500' : ''
+            }`}
+          >
+            <button
+              className={`page-link rounded-full w-8 h-8 ${
+                currentPage === pageNumber ? 'text-white' : ''
+              }`}
+              onClick={() => paginate(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+function getNestedValue(obj, path) {
+  const pathArray = path.split('.');
+  return pathArray.reduce(
+    (acc, key) => (acc && acc[key] !== 'undefined' ? acc[key] : ''),
+    obj
+  );
+}
+
+const DynamicTable = ({
+  columns,
+  data,
+  onDelete,
+  addPath,
+  updatePath,
+  handleSearch,
+  value,
+}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Set the number of items per page
+
+  // Calculate the indexes of the items to display
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  return (
+    <div className="container  wrapper">
+      <div className="flex justify-between items-center mb-4">
+        <div className="w-4/5 flex items-center">
+          {/* Search input field */}
           <input
             type="text"
-            placeholder="Search by Song or Artist"
-            className="px-4 py-2 border w-full"
-            value={searchTerm}
+            placeholder="Search..."
+            className="w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
             onChange={handleSearch}
+            value={value} // Update the search query
           />
-          {sortKey && (
-            <div
-              className="ml-2 cursor-pointer text-gray-600"
-              onClick={() => handleSort(sortKey)}
-            >
-              {sortDirection === 'asc' ? (
-                <span>&uarr;</span>
-              ) : (
-                <span>&darr;</span>
-              )}
-            </div>
-          )}
+          {/* Add a search button */}
         </div>
-        <table className="w-full bg-white rounded-b-lg overflow-hidden">
-          <TableHeader
-            sortKey={sortKey}
-            sortDirection={sortDirection}
-            handleSort={handleSort}
-          />
-          <tbody>
-            {visibleData.map((item, index) => (
-              <TableRow key={index} {...item} />
-            ))}
-          </tbody>
-        </table>
-        <div className="flex justify-center mt-4">
-          <ReactPaginate
-            pageCount={totalPages}
-            onPageChange={(selectedItem) =>
-              setCurrentPage(selectedItem.selected + 1)
-            }
-            forcePage={currentPage - 1}
-            marginPagesDisplayed={1}
-            pageRangeDisplayed={2}
-            containerClassName={'pagination row-style-pagination'}
-            previousLabel={'Previous'}
-            nextLabel={'Next'}
-            previousClassName={'pagination-item previous'}
-            nextClassName={'pagination-item next'}
-            activeClassName={'active'}
-            pageClassName={'pagination-item page'}
-            pageLinkClassName={'pagination-link'}
-          />
+        <div className="w-1/5 flex items-center justify-end">
+          {/* Add button */}
+          <Link
+            to={`${addPath}`}
+            className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+          >
+            Add
+          </Link>
         </div>
       </div>
+      <table className="min-w-full bg-white border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            {columns.map((column) => (
+              <th
+                key={column.id}
+                className="py-2 px-4 bg-gray-100 border border-gray-300 text-gray-600 font-semibold"
+              >
+                {column.label}
+              </th>
+            ))}
+            <th className="py-2 px-4 bg-gray-100 border border-gray-300 text-gray-600 font-semibold">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentItems.map((item) => (
+            <tr key={item.id}>
+              {columns.map((column) => {
+                if (column.id === 'image') {
+                  return (
+                    <td
+                      key={column.id}
+                      className="py-2 px-4 border border-gray-300"
+                    >
+                      <img src={item.image} alt="image" width="50" />
+                    </td>
+                  );
+                } else {
+                  return (
+                    <td
+                      key={column.id}
+                      className="py-2 px-4 border border-gray-300"
+                    >
+                      {getNestedValue(item, column.id)}
+                    </td>
+                  );
+                }
+              })}
+              <td className="py-2 px-4 border border-gray-300">
+                {/* Update and Delete buttons */}
+                <Link
+                  to={`${updatePath}/${item.id}`}
+                  className="p-2 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600"
+                >
+                  Update
+                </Link>
+                <button
+                  onClick={() => onDelete(item.id)}
+                  className="p-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={columns.length + 1} className="border-t p-4">
+              <Pagination
+                itemsPerPage={itemsPerPage}
+                totalItems={data.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 };
