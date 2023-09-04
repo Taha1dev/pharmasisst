@@ -8,12 +8,11 @@ import {
   RiAdminLine,
   RiMedicineBottleLine,
   RiSettings2Line,
-  RiLogoutCircleLine
+  RiLogoutCircleLine,
 } from 'react-icons/ri';
 import '../css/Layout.css';
 import { Outlet } from 'react-router-dom';
-import BreadCrumb from '../BreadCrumb/BreadCrumb';
-import { FiSearch } from 'react-icons/fi';
+
 
 const links = [
   {
@@ -42,8 +41,8 @@ const links = [
   },
   {
     id: 5,
-    text: 'Medicine Type',
-    to: '/medicinetype',
+    text: 'Drug Info',
+    to: '/medicines/medicinetype',
     icon: <VscTypeHierarchySub size={25} />,
   },
   {
