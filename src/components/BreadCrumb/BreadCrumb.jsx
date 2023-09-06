@@ -3,13 +3,13 @@ import { FiChevronsRight } from 'react-icons/fi';
 import { HiOutlineHome } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
-const BreadCrumb = ({ place }) => {
+const BreadCrumb = ({ place, back }) => {
   return (
     <nav className="flex mb-2" aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1 md:space-x-3 ">
         <li className="inline-flex items-center">
           <Link
-            to="/Home"
+            to={back}
             className="inline-flex items-center text-sm font-medium text-gray-700 hover:underline hover:text-cyan-600"
           >
             <HiOutlineHome />
