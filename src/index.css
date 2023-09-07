@@ -2,8 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --mainColor: #00a8b9
+}
+
 body {
   font-family: 'Montserrat' !important;
+}
+
+::selection {
+  background-color: #00a8b9;
+  color: #fff;
 }
 
 .logo {
