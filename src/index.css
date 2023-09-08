@@ -7,7 +7,18 @@
 }
 
 body {
-  font-family: 'Montserrat' !important;
+  background-color: #fff;
+  font-family: 'Montserrat', 'Cairo';
+}
+
+.swal2-title {
+  color: #333 !important;
+}
+
+/* Change the confirm button color */
+.swal2-confirm {
+  background-color: var(--mainColor) !important;
+  color: white;
 }
 
 ::selection {
@@ -21,7 +32,6 @@ body {
   transition: filter 300ms;
   animation: dropShadowEffect 1s infinite;
 }
-
 
 @keyframes dropShadowEffect {
   0% {
