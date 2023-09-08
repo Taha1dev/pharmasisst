@@ -1,13 +1,11 @@
 import React from 'react';
 import './css/catCard.css';
-const CategoriesCard = () => {
+const CategoriesCard = ({ name }) => {
   return (
     <div className="container">
       <a className="card1" href="#">
-        <h3>This is option 1</h3>
-        <p className="small">
-          Card description with lots of great facts and interesting details.
-        </p>
+        <h3>{name}</h3>
+        <p className="small">Click me to see my Meds </p>
         <div className="go-corner" href="#">
           <div className="go-arrow">→</div>
         </div>
