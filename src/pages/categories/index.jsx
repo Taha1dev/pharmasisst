@@ -42,7 +42,7 @@ const Categories = () => {
   };
   return (
     <>
-      <BreadCrumb place={breadcrumbItems} />
+      <BreadCrumb back={'/'} place={breadcrumbItems} />
       <div className="grid-container">
         {records?.map((category, index) => (
           <CategoriesCard key={index} name={category.name} />
