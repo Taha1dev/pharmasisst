@@ -7,11 +7,11 @@ const ModeratorCompany = () => {
 
   return (
     <div>
-    <BreadCrumb back={'/Moderator'} place={breadcrumbItems} />
-    <Link to='createcompany'>create</Link>
-    <br />
-    <Link to='updatecompany/1'>update</Link>
-  </div>
+      <BreadCrumb back={'/Moderator'} place={breadcrumbItems} />
+      <Link to="createcompany">create</Link>
+      <br />
+      <Link to="updatecompany/1">update</Link>
+    </div>
   );
 };
 
