@@ -9,15 +9,17 @@ const useData = (endpoint) => {
   const fetchData = useCallback(async () => {
     const response = await axiosClient.get(endpoint);
     return response.data;
-  });
+  }, [endpoint]); // Memoize the fetchData function
 
-  const deleteData = async (id) => {
-    await axiosClient.delete(`${endpoint}/${id}`);
-  };
+  const deleteData = useCallback(
+    async (id) => {
+      await axiosClient.delete(`${endpoint}/${id}`);
+    },
+    [endpoint]
+  ); // Memoize the deleteData function
 
   const { data, isLoading } = useQuery(endpoint, fetchData, {
     keepPreviousData: true,
-    staleTime: 10000,
   });
 
   const mutation = useMutation(deleteData, {
