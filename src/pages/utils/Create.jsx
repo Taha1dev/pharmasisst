@@ -15,6 +15,7 @@ const Create = ({ fields, endpoint, redirectPath }) => {
       for (const field of fields) {
         formData[field.name] = inputRefs[field.name].value;
       }
+
       axiosClient
         .post(`/${endpoint}`, formData, {
           headers: {
@@ -27,12 +28,10 @@ const Create = ({ fields, endpoint, redirectPath }) => {
             icon: 'success',
             confirmButtonText: 'Close',
           }).then(() => {
-            // Generate a unique identifier (e.g., timestamp)
-            const timestamp = Date.now();
-            const redirectURL = `${redirectPath}?timestamp=${timestamp}`;
-
-            // Redirect to the unique URL
-            navigate(redirectURL);
+            // Redirect to the desired URL after a timeout
+            setTimeout(() => {
+              navigate(redirectPath);
+            }, 500);
           });
         });
     } catch (err) {
@@ -46,12 +45,9 @@ const Create = ({ fields, endpoint, redirectPath }) => {
         onSubmit={handleAdd}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg"
       >
-        {fields?.map((field,index) => (
+        {fields?.map((field, index) => (
           <div key={index} className="mb-4">
-            <label
-              htmlFor={field.name}
-              className="block text-gray-700"
-            >
+            <label htmlFor={field.name} className="block text-gray-700">
               {field.label}
             </label>
             <input
