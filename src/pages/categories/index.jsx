@@ -14,6 +14,7 @@ const Categories = () => {
 
   const columns = [
     { id: 'name', label: 'Name' },
+    { id: 'user.full_name', label: 'Added by' },
     { id: 'image', label: 'Image' },
   ];
 

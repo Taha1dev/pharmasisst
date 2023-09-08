@@ -18,8 +18,8 @@ const CreateCategory = () => {
       <BreadCrumb back={'/'} place={breadcrumbItems} />
       <Create
         fields={categoryFields}
-        endpoint="admin/categories"
-        redirectPath="/categories"
+        endpoint="moderator/categories"
+        redirectPath="./"
       />
     </>
   );
