@@ -42,27 +42,27 @@ const Medicines = () => {
     setFilteredData(filteredResults); // Update the filteredData state with the search results
     return filteredResults;
   };
+
   return (
     <>
-      <BreadCrumb place={breadcrumbItems} />
-      <div>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <h2 className="text-xl inline-block">Medicines list</h2>
-            <DynamicTable
-              columns={columns}
-              data={filteredData} // Use the filteredData state here
-              onDelete={handleDelete}
-              addPath="./CreateMedicine"
-              updatePath="./updateMedicine"
-              handleSearch={handleSearch}
-              value={searchTerm}
-            />
-          </>
-        )}
-      </div>
+      <BreadCrumb back={'/'} place={breadcrumbItems} />
+      <h2 className="text-2xl">Medicines</h2>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <h2 className="text-xl inline-block">Medicines list</h2>
+          <DynamicTable
+            columns={columns}
+            data={filteredData} // Use the filteredData state here
+            onDelete={handleDelete}
+            addPath="./CreateMedicine"
+            updatePath="./updateMedicine"
+            handleSearch={handleSearch}
+            value={searchTerm}
+          />
+        </>
+      )}
       {/* </div> */}
     </>
   );
