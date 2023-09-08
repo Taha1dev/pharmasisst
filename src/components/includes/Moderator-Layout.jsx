@@ -7,55 +7,41 @@ import {
   RiDashboardLine,
   RiAdminLine,
   RiMedicineBottleLine,
-  RiSettings2Line,
   RiLogoutCircleLine,
 } from 'react-icons/ri';
 import '../css/Layout.css';
 import { Outlet } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const links = [
   {
     id: 1,
     text: 'Dashboard',
-    to: '/home',
+    to: '/Moderator',
     icon: <RiDashboardLine size={25} />,
   },
   {
     id: 2,
     text: 'Categories',
-    to: '/categories',
+    to: 'categories',
     icon: <IoMedkitOutline size={25} />,
   },
   {
     id: 3,
     text: 'Companies',
-    to: '/companies',
+    to: 'companies',
     icon: <RiAdminLine size={25} />,
   },
   {
     id: 4,
     text: 'Medicines',
-    to: '/medicines',
+    to: 'medicines',
     icon: <RiMedicineBottleLine size={25} />,
   },
   {
     id: 5,
     text: 'Drug Info',
-    to: '/medicines/medicinetype',
+    to: 'medicinetypes',
     icon: <VscTypeHierarchySub size={25} />,
-  },
-  {
-    id: 6,
-    text: 'Moderators',
-    to: '/subadmins',
-    icon: <RiAdminLine size={25} />,
-  },
-  {
-    id: 7,
-    text: 'Settings',
-    to: '/settings',
-    icon: <RiSettings2Line size={25} />,
   },
   {
     id: 8,
@@ -65,7 +51,7 @@ const links = [
   },
 ];
 
-const Layout = () => {
+const ModeratorLayout = () => {
   //   const router = useNavigate()
 
   //   const token = localStorage.getItem('token')
@@ -82,7 +68,7 @@ const Layout = () => {
             <div className="title flex justify-around items-center px-2 py-5 text-zinc-800">
               <MdAdminPanelSettings size={30} />
               <div>
-                <h1 className="text-xl font-medium">Admin Panel</h1>
+                <h1 className="text-xl font-medium">Moderator Panel</h1>
               </div>
             </div>
 
@@ -113,4 +99,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default ModeratorLayout;
