@@ -40,17 +40,18 @@ const Companies = () => {
   };
   return (
     <>
-      <BreadCrumb place={breadcrumbItems} />
+      <BreadCrumb back={'/'} place={breadcrumbItems} />
+
       <h2>Companies List</h2>
       {isLoading ? (
         <Loading />
       ) : (
         <DynamicTable
-              columns={columns}
-              data={filteredData} // Use the filteredData state here
-              onDelete={handleDelete}
-              handleSearch={handleSearch}
-              value={searchTerm}
+          columns={columns}
+          data={filteredData} // Use the filteredData state here
+          onDelete={handleDelete}
+          handleSearch={handleSearch}
+          value={searchTerm}
           addPath={'./CreateCompany'}
           updatePath={`./updateCompany`}
         />

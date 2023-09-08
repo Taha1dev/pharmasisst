@@ -7,9 +7,14 @@ const UpdateCompany = () => {
     { name: 'name', label: 'Company Name', type: 'text' },
     { name: 'image', label: 'Company Image', type: 'file' },
   ];
-
+  const breadcrumbItems = [
+    { url: '/companies', label: 'Categories' },
+    { url: '/companies/updatecompany', label: 'Update Company' },
+  ];
   return (
     <>
+      <BreadCrumb back={'/'} place={breadcrumbItems} />
+
       <h1 className="text-3xl">Update Company</h1>
       <Edit
         fields={companyFields}
