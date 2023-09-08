@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axiosClient from '../../lib/axiosClient';
 import { useQuery } from 'react-query';
 import Swal from 'sweetalert2';
+import Loading from '../../components/logout/Logout';
 
 const Edit = ({ fields, endpoint, redirectPath }) => {
   const { id } = useParams();
@@ -43,10 +44,8 @@ const Edit = ({ fields, endpoint, redirectPath }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await axiosClient.post(`/${endpoint}/${id}`, inputValues);
-
       // Show success message and navigate
       Swal.fire({
         title: 'Data Updated Successfully',
@@ -58,12 +57,26 @@ const Edit = ({ fields, endpoint, redirectPath }) => {
         }, 500);
       });
     } catch (error) {
-      console.error('Error updating data:', error);
+      try {
+        await axiosClient.put(`/${endpoint}/${id}`, inputValues);
+        // Show success message and navigate
+        Swal.fire({
+          title: 'Data Updated Successfully',
+          icon: 'success',
+          confirmButtonText: 'Close',
+        }).then(() => {
+          setTimeout(() => {
+            navigate(redirectPath);
+          }, 500);
+        });
+      } catch (error) {
+        console.error('Error updating data:', error);
+      }
     }
   };
 
   if (isLoading || isError) {
-    return <div>Loading or Error...</div>;
+    return <Loading />;
   }
 
   return (
@@ -72,15 +85,15 @@ const Edit = ({ fields, endpoint, redirectPath }) => {
         onSubmit={handleSubmit}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg"
       >
-        {fields?.map((field) => (
-          <div key={field.name} className="mb-4">
+        {fields?.map((field, index) => (
+          <div key={index} className="mb-4">
             <label htmlFor={field.name} className="block text-gray-700">
               {field.label}
             </label>
             <input
               name={field.name}
               type={field.type}
-              value={inputValues[field.name] || ''}
+              defaultValue={inputValues[field.name] || ''}
               onChange={handleChange}
               className="border rounded-lg px-3 py-2 mt-2 w-full focus:outline-none focus:ring focus:border-blue-300"
             />

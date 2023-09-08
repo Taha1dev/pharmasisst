@@ -46,9 +46,12 @@ const Create = ({ fields, endpoint, redirectPath }) => {
         onSubmit={handleAdd}
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg"
       >
-        {fields?.map((field) => (
-          <div key={field.name} className="mb-4">
-            <label htmlFor={field.name} className="block text-gray-700">
+        {fields?.map((field,index) => (
+          <div key={index} className="mb-4">
+            <label
+              htmlFor={field.name}
+              className="block text-gray-700"
+            >
               {field.label}
             </label>
             <input
