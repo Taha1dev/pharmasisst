@@ -1,7 +1,6 @@
 import './App.css';
 import {
   Route,
-  BrowserRouter as Router,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
@@ -12,7 +11,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './NotFound';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+// import { ReactQueryDevtools } from 'react-query/devtools';
 import Crud from './pages/utils/Crud';
 import Logout from './pages/Logout';
 import Edit from './pages/utils/Edit';
@@ -51,6 +50,7 @@ import MCreateMedType from './Moderator/medicineTypes/CreateMedType';
 import MUpdateMedType from './Moderator/medicineTypes/UpdateMedType';
 import MCreateCategory from './Moderator/categories/CreateCategory';
 import MUpdateCategory from './Moderator/categories/UpdateCategory';
+import AddMedicineLabels from './pages/medicines/AddMedicineLabels';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -81,6 +81,10 @@ const App = () => {
           <Route
             path="/medicines/createmedicine"
             element={<CreateMedicine />}
+          />
+          <Route
+            path="/medicines/addmedicinelabels/:id"
+            element={<AddMedicineLabels />}
           />
           <Route path="/medicines/createmedtype" element={<CreateMedType />} />
           <Route
@@ -120,19 +124,40 @@ const App = () => {
 
           <Route path="companies" element={<ModeratorCompany />} />
           <Route path="companies/createcompany" element={<MCreateCompany />} />
-          <Route path="companies/updatecompany/:id" element={<MUpdateCompany />} />
+          <Route
+            path="companies/updatecompany/:id"
+            element={<MUpdateCompany />}
+          />
 
           <Route path="categories" element={<ModeratorCategory />} />
-          <Route path="categories/createcategory" element={<MCreateCategory />} />
-          <Route path="categories/updatecategory/:id" element={<MUpdateCategory />} />
+          <Route
+            path="categories/createcategory"
+            element={<MCreateCategory />}
+          />
+          <Route
+            path="categories/updatecategory/:id"
+            element={<MUpdateCategory />}
+          />
 
           <Route path="medicines" element={<ModeratorMedicines />} />
-          <Route path="medicines/createmedicine" element={<MCreateMedicine />} />
-          <Route path="medicines/updatemedicine/:id" element={<MUpdateMedicine />} />
+          <Route
+            path="medicines/createmedicine"
+            element={<MCreateMedicine />}
+          />
+          <Route
+            path="medicines/updatemedicine/:id"
+            element={<MUpdateMedicine />}
+          />
 
           <Route path="medicinetypes" element={<MmedicineTypes />} />
-          <Route path="medicinetypes/createmedtype" element={<MCreateMedType />} />
-          <Route path="medicinetypes/updatemedtype/:id" element={<MUpdateMedType />} />
+          <Route
+            path="medicinetypes/createmedtype"
+            element={<MCreateMedType />}
+          />
+          <Route
+            path="medicinetypes/updatemedtype/:id"
+            element={<MUpdateMedType />}
+          />
         </Route>
         {/* Moderator Routes */}
         <Route path="/crud" element={<Crud />} />
@@ -145,7 +170,7 @@ const App = () => {
     <>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        <ReactQueryDevtools position="bottom-right" />
+        {/* <ReactQueryDevtools position="bottom-right" /> */}
       </QueryClientProvider>
     </>
   );
