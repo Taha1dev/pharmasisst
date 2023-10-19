@@ -11,6 +11,9 @@ export default {
         500: '500px',
         600: '600px',
       },
+      colors: {
+        primary: 'var(--mainColor)',
+      },
     },
   },
   plugins: [],
