@@ -1,4 +1,3 @@
-import React from 'react';
 import { FiChevronsRight } from 'react-icons/fi';
 import { HiOutlineHome } from 'react-icons/hi';
 import { Link } from 'react-router-dom';

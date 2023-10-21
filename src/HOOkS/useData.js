@@ -40,16 +40,41 @@ const useData = (endpoint) => {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Delete this record?',
+      text: "This action cannot be undone!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Keep',
     }).then((result) => {
       if (result.isConfirmed) {
-        mutation.mutate(id);
-        Swal.fire('Deleted!', 'The record has been deleted.', 'success');
+        Swal.fire({
+          title: 'Deleting...',
+          icon: 'info',
+          showCancelButton: false,
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          allowEscapeKey: false
+        });
+  
+        mutation.mutate(id, {
+          onSuccess: () => {
+            Swal.update({
+              title: 'Deleted!',
+              html: 'The record has been deleted.',
+              icon: 'success',
+              showCancelButton: false,
+              showConfirmButton: false
+            });
+  
+            setTimeout(() => {
+              Swal.close();
+            }, 1000);
+          },
+          onError: () => {
+            Swal.fire('Error', 'An error occurred while deleting the record.', 'error');
+          },
+        });
       }
     });
   };
