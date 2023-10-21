@@ -1,4 +1,3 @@
-import React from 'react';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import Loading from '../../components/logout/Logout';
 import { useState } from 'react';
