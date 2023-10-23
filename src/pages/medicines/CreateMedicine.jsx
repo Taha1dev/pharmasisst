@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axiosClient from '../../lib/axiosClient';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
+import { useNavigate } from 'react-router-dom';
 
 const CreateMedicine = () => {
   const [categories, setCategories] = useState([]);
   const [companies, setCompanies] = useState([]);
+  const [medicineId, setMedicineId] = useState(null); // State to store the medicine ID
+  const navigate = useNavigate();
   const nameRef = useRef(null);
   const imageRef = useRef(null);
   const categoryNameRef = useRef(null);
   const companyNameRef = useRef(null);
 
-  // Fetch category and company data when the component mounts
   useEffect(() => {
     const fetchCategoryData = async () => {
       try {
@@ -49,27 +51,27 @@ const CreateMedicine = () => {
       const image = imageRef.current.value;
       const categoryId = categoryNameRef.current.value;
       const companyId = companyNameRef.current.value;
-
-      // Prepare the data object to send in the POST request
       const dataToSend = {
         name,
         image,
-        category_id: categoryId, // Assuming your API expects category_id and company_id
+        category_id: categoryId,
         company_id: companyId,
       };
-
-      // Send the POST request to your API endpoint
       const response = await axiosClient.post('/admin/medicines', dataToSend);
-
-      // Handle success (e.g., show a success message or redirect)
       console.log('Medicine added successfully:', response.data);
-
-      // You can reset the form or handle navigation as needed
+      const addedMedicineId = response.data.data.id; // Get the ID of the newly added medicine
+      setMedicineId(addedMedicineId); // Store the medicine ID in the component's state
     } catch (error) {
-      // Handle error (e.g., show an error message)
       console.error('Error adding medicine:', error);
     }
   };
+
+  useEffect(() => {
+    if (medicineId) {
+      navigate(`../medicines/AddMedicineLabels/${medicineId}`); // Redirect with the medicine ID
+    }
+  }, [medicineId, navigate]);
+
   const handleSubmit = (e) => {
     handleAddMedicine();
     e.preventDefault();
@@ -103,7 +105,7 @@ const CreateMedicine = () => {
               Image
             </label>
             <input
-              type="text"
+              type="file"
               ref={imageRef}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />

@@ -1,4 +1,3 @@
-import React from 'react';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import Loading from '../../components/logout/Logout';
 import useData from '../../HOOkS/useData';
@@ -36,7 +35,6 @@ const MedicineType = () => {
   };
   const breadcrumbItems = [
     { url: '/medicines/MedicineType', label: 'Drug Labels' },
-    
   ];
   return (
     <>

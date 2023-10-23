@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/Categories.css';
 import CategoriesCard from '../../components/CategoriesCard';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';

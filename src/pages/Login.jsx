@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useEffect, useRef, useState } from 'react';
 import axiosClient from '../lib/axiosClient';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './styles/login.css';
-import Swal from 'sweetalert2';
 import Loading from '../components/logout/Logout';
 const Login = () => {
   const [userType, setUserType] = useState('');
@@ -18,12 +16,12 @@ const Login = () => {
     const token = localStorage.getItem('token');
     if (token) {
       if (userType === 'Moderator') {
-        navigate('/Moderator');
-      } else {
-        navigate('/Moderator');
+        navigate('../Moderator/');
+      } else if (userType === 'Admin') {
+        navigate('/home');
       }
     }
-  });
+  }, [userType, navigate]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -31,16 +29,14 @@ const Login = () => {
     const passwordValue = passwordRef.current.value;
 
     // Input validation
-    if (!emailValue || !passwordValue) {
-      setError('Please enter both email and password.');
+    if (!emailValue || !passwordValue || !userType) {
+      setError('Please enter both email, password, and select a user type.');
       return;
     }
 
     setIsLoading(true);
     setError('');
-    if (isLoading) {
-      <Loading />;
-    }
+
     try {
       let response;
       if (userType === 'Moderator') {
@@ -55,29 +51,24 @@ const Login = () => {
         });
       }
 
-      const token = response.data.token;
-      if (token) {
-        localStorage.setItem('token', token);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
         if (userType === 'Moderator') {
-          navigate('/Moderator');
+          navigate('../Moderator/');
         } else {
           navigate('/home');
         }
       }
     } catch (error) {
-      console.log(error);
-      Swal.fire(
-        'Error',
-        'Login failed. Please check your credentials.',
-        'error'
-      );
+      console.error(error);
+      setError('Login failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <section className="bg-gray-900">
+      {isLoading && <Loading />}
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           className={`flex text-white items-center mb-6 text-2xl font-semibold 'text-gray-900`}
@@ -88,14 +79,15 @@ const Login = () => {
         <div
           className={`w-full bg-white rounded-lg shadow border-transparent md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-transparent`}
         >
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <div className="bg-gray-800 rounded-lg p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="flex flex-col items-center">
-              <h2 className="my-1 text-white text-2xl">
-                Choose Your Role Please
-              </h2>
+              <label className="my-1 text-white text-2xl" htmlFor="userType">
+                Select your role
+              </label>
               <div className="relative inline-block w-40">
                 <select
-                  className="block cursor-pointer appearance-none w-40 bg-gray-50 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="userType"
+                  className="block cursor-pointer appearance-none bg-gray-50 border pr-8 border-gray-300 text-gray-700 py-2 px-4  rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   value={userType} // Set value to userType
                   onChange={(e) => setUserType(e.target.value)} // Handle onChange to update userType
                 >
@@ -109,7 +101,7 @@ const Login = () => {
                     Moderator
                   </option>
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <div className="pointer-events-none absolute inset-y-0 -right-7 flex items-center px-2 text-gray-700">
                   <svg
                     className="fill-current h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"

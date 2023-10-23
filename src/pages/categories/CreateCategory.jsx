@@ -1,5 +1,4 @@
 // Example usage in a component for creating categories
-import React from 'react';
 import Create from '../utils/Create';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 
@@ -18,8 +17,8 @@ const CreateCategory = () => {
       <BreadCrumb back={'/'} place={breadcrumbItems} />
       <Create
         fields={categoryFields}
-        endpoint="moderator/categories"
-        redirectPath="./"
+        endpoint="admin/categories"
+        redirectPath="../categories/"
       />
     </>
   );

@@ -1,5 +1,5 @@
 // Example usage in a component for creating companies
-import React from 'react';
+
 import Edit from '../utils/Edit';
 
 const UpdateCompany = () => {

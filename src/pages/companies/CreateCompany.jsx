@@ -1,5 +1,5 @@
 // Example usage in a component for creating companies
-import React from 'react';
+
 import Create from '../utils/Create';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 

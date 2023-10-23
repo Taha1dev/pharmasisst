@@ -1,4 +1,3 @@
-import React from 'react';
 import Edit from '../utils/Edit';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 
@@ -12,7 +11,7 @@ const UpdateModerator = () => {
   ];
   return (
     <div>
-          <BreadCrumb back={'/'} place={breadcrumbItems} />
+      <BreadCrumb back={'/'} place={breadcrumbItems} />
 
       <h1 className="text-2xl">Update Moderator</h1>
       <Edit

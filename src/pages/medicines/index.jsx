@@ -1,4 +1,3 @@
-import React from 'react';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import DynamicTable from '../../components/table/Dynamictable';
 import useData from '../../HOOkS/useData';
