@@ -1,4 +1,3 @@
-import React from 'react';
 import './css/catCard.css';
 const CategoriesCard = ({ name }) => {
   return (
