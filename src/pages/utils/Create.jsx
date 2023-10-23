@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
 import axiosClient from '../../lib/axiosClient';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+// eslint-disable-next-line react/prop-types
 const Create = ({ fields, endpoint, redirectPath }) => {
   const navigate = useNavigate();
   const inputRefs = {};
@@ -22,7 +22,7 @@ const Create = ({ fields, endpoint, redirectPath }) => {
             'Content-Type': 'multipart/form-data',
           },
         })
-        .then((response) => {
+        .then(() => {
           Swal.fire({
             title: 'Data Added Successfully',
             icon: 'success',
@@ -35,7 +35,10 @@ const Create = ({ fields, endpoint, redirectPath }) => {
           });
         });
     } catch (err) {
-      console.log(err);
+      err.map((erorr) => {
+        console.error(erorr.errors);
+        console.error(erorr.messgae);
+      });
     }
   };
 
@@ -43,7 +46,7 @@ const Create = ({ fields, endpoint, redirectPath }) => {
     <div>
       <form
         onSubmit={handleAdd}
-        className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg"
+        className="max-w-md mx-auto p-4 bg-white  shadow-xl rounded-lg"
       >
         {fields?.map((field, index) => (
           <div key={index} className="mb-4">

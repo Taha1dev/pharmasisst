@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axiosClient from '../../lib/axiosClient';
 import { useQuery } from 'react-query';
@@ -56,7 +56,13 @@ const Edit = ({ fields, endpoint, redirectPath }) => {
           navigate(redirectPath);
         }, 500);
       });
-    } catch (error) {
+    } catch (postError) {
+      Swal.fire({
+        title: 'Error updating data',
+        text: postError.response.data,
+        icon: 'error',
+        confirmButtonText: 'Close',
+      });
       try {
         await axiosClient.put(`/${endpoint}/${id}`, inputValues);
         // Show success message and navigate
@@ -70,7 +76,8 @@ const Edit = ({ fields, endpoint, redirectPath }) => {
           }, 500);
         });
       } catch (error) {
-        console.error('Error updating data:', error);
+        console.log(error);
+        // Show error message using Swal
       }
     }
   };
